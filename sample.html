@@ -101,7 +101,11 @@ refText: supermarket
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				t2 = Math.round(new Date().getTime() / 1000);
 				alert(xhr.responseText);
-				console.log(xhr.responseText);
+				// console.log(xhr.responseText);
+				console.log(typeof xhr.responseText);
+				var result = JSON.parse(xhr.responseText);
+				console.log(typeof result);
+				console.log(result);
 			}
 		};
 		return false;
