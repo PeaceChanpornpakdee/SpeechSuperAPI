@@ -103,10 +103,15 @@ refText: supermarket
 				alert(xhr.responseText);
 				// console.log(xhr.responseText);
 				console.log(typeof xhr.responseText);
-				var result = JSON.parse(xhr.responseText);
-				console.log(typeof result);
+				var results = JSON.parse(xhr.responseText);
+				console.log(typeof results);
 				// console.log(result);
-				console.log(Object.keys(result));
+				console.log(Object.keys(results));
+				console.log("--- Overall ---");
+				console.log(results.result);
+				console.log("--- Words ---");
+				console.log(results.result.words);
+				console.log(results.result.words.length);
 			}
 		};
 		return false;
