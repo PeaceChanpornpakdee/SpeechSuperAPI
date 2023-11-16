@@ -1,4 +1,5 @@
 <script type="text/javascript" src="sha.js"></script>
+<script type="text/javascript" src="key.js"></script>
 <h2>-----------javascript http sample-----------</h2>
 <form action="" method="post" enctype="multipart/form-data" id="form" name="form_en">
 <pre>
@@ -15,10 +16,10 @@ refText: supermarket
 <script>
 	var baseUrl = "https://api.speechsuper.com/";
 
-	var appKey = "Insert your appKey here";
-	var secretKey = "Insert your secretKey here";
-	
-	var coreType = "word.eval"; // Change the coreType according to your needs.
+	var appKey = Key.appKey;
+	var secretKey = Key.secretKey;
+
+	var coreType = "sent.eval"; // Change the coreType according to your needs.
 	var refText = "supermarket"; // Change the reference text according to your needs.
 	var audioType = "wav"; // Change the audio type corresponding to the audio file.
 	var sampleRate = 16000;
@@ -100,6 +101,7 @@ refText: supermarket
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				t2 = Math.round(new Date().getTime() / 1000);
 				alert(xhr.responseText);
+				console.log(xhr.responseText);
 			}
 		};
 		return false;
