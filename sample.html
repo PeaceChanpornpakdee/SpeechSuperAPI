@@ -13,6 +13,18 @@ refText: supermarket
 </pre>
 </form>
 
+<table id="myTable">
+	<thead>
+	  <tr>
+		<th>Word</th>
+		<th>Score</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <!-- Table body will be generated here -->
+	</tbody>
+  </table>
+
 <script>
 	var baseUrl = "https://api.speechsuper.com/";
 
@@ -110,8 +122,50 @@ refText: supermarket
 				console.log("--- Overall ---");
 				console.log(results.result);
 				console.log("--- Words ---");
-				console.log(results.result.words);
-				console.log(results.result.words.length);
+				const wordResult = results.result.words;
+				console.log(wordResult);
+				console.log(wordResult.length);
+
+				console.log(wordResult[0].scores.overall)
+
+				// Get the table body element
+				const tableBody = document.querySelector('#myTable tbody');
+
+				// Generate table rows and cells using nested loops
+				for (let i = 0; i < wordResult.length; i++) {
+					const row = document.createElement('tr');
+
+					const cell1 = document.createElement('td');
+					cell1.textContent = wordResult[i].word;
+					row.appendChild(cell1);
+
+					const cell2 = document.createElement('td');
+					cell2.textContent = wordResult[i].scores.overall;
+					row.appendChild(cell2);
+
+					tableBody.appendChild(row);
+
+					const phonemes = wordResult[i].phonemes;
+
+					console.log(phonemes);
+					console.log(typeof phonemes);
+
+					for (let j = 0; j < phonemes.length; j++) {
+						console.log(j);
+						const subRow = document.createElement('tr');
+
+						const cell11 = document.createElement('td');
+						cell11.textContent = phonemes[j].phoneme;
+						subRow.appendChild(cell11); 
+
+						const cell22 = document.createElement('td');
+						cell22.textContent = phonemes[j].pronunciation;
+						subRow.appendChild(cell22);
+						console.log(phonemes[j].phoneme, phonemes[j].pronunciation);
+						
+						tableBody.appendChild(subRow);
+					}
+				}
 			}
 		};
 		return false;
