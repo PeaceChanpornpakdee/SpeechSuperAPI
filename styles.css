@@ -1,0 +1,58 @@
+/* Color palette  */
+:root {
+    /* --secondary-color: #2ecc71;
+    --accent-color: #e74c3c;
+    --background-color: #f5f5f5;
+    --text-color: #333333; */
+    /* Add more colors as needed */
+    --white: #ffffff;
+
+    --violent-violet-50: #fbf9fe;
+    --violent-violet-100: #eceafd;
+    --violent-violet-200: #dbd8fc;
+    --violent-violet-300: #c1b8fa;
+    --violent-violet-400: #a18ff6;
+    --violent-violet-500: #8162f0;
+    --violent-violet-600: #7141e6;
+    --violent-violet-700: #622fd2;
+    --violent-violet-800: #5127b0;
+    --violent-violet-900: #442290;
+    --violent-violet-950: #2a1465;
+
+    --primary-color: var(--violent-violet-950);
+}
+
+
+
+#pronunciationTable {
+    width: 50%;
+    border-collapse: collapse;
+    text-align: center;
+}
+  
+/* Apply styles to table header cells (th) */
+#pronunciationTable th {
+    background-color: var(--primary-color);
+    padding: 8px;
+    border: 1px solid #dddddd;
+    color: var(--white);
+}
+  
+/* Apply styles to table data cells (td) */
+#pronunciationTable td {
+    padding: 8px;
+    border: 1px solid #dddddd;
+}
+
+#pronunciationTable .main-row {
+    background-color: var(--violent-violet-300);
+}
+
+#pronunciationTable .even-row {
+    background-color: var(--violent-violet-50);
+}
+  
+
+#pronunciationTable .odd-row {
+    background-color: var(--violent-violet-100);
+}

@@ -1,5 +1,6 @@
 <script type="text/javascript" src="sha.js"></script>
 <script type="text/javascript" src="key.js"></script>
+<link rel="stylesheet" href="styles.css">
 <h2>-----------javascript http sample-----------</h2>
 <form action="" method="post" enctype="multipart/form-data" id="form" name="form_en">
 <pre>
@@ -13,7 +14,7 @@ refText: supermarket
 </pre>
 </form>
 
-<table id="myTable">
+<table id="pronunciationTable">
 	<thead>
 	  <tr>
 		<th>Word</th>
@@ -129,7 +130,7 @@ refText: supermarket
 				console.log(wordResult[0].scores.overall)
 
 				// Get the table body element
-				const tableBody = document.querySelector('#myTable tbody');
+				const tableBody = document.querySelector('#pronunciationTable tbody');
 
 				// Generate table rows and cells using nested loops
 				for (let i = 0; i < wordResult.length; i++) {
@@ -143,12 +144,7 @@ refText: supermarket
 					cell2.textContent = wordResult[i].scores.overall;
 					row.appendChild(cell2);
 
-					cell1.style.padding = '8px';
-      				cell1.style.border = '1px solid #dddddd';
-					cell1.style.textAlign = 'left';
-					cell2.style.padding = '8px';
-      				cell2.style.border = '1px solid #dddddd';
-					cell2.style.textAlign = 'center';
+					row.classList.add('main-row');
 
 					tableBody.appendChild(row);
 
@@ -169,6 +165,13 @@ refText: supermarket
 						cell22.textContent = phonemes[j].pronunciation;
 						subRow.appendChild(cell22);
 						console.log(phonemes[j].phoneme, phonemes[j].pronunciation);
+
+						if (j%2 === 0) {
+        					subRow.classList.add('even-row');
+						}
+						else {
+							subRow.classList.add('odd-row');
+						}
 						
 						tableBody.appendChild(subRow);
 					}
