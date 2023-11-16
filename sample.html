@@ -143,6 +143,13 @@ refText: supermarket
 					cell2.textContent = wordResult[i].scores.overall;
 					row.appendChild(cell2);
 
+					cell1.style.padding = '8px';
+      				cell1.style.border = '1px solid #dddddd';
+					cell1.style.textAlign = 'left';
+					cell2.style.padding = '8px';
+      				cell2.style.border = '1px solid #dddddd';
+					cell2.style.textAlign = 'center';
+
 					tableBody.appendChild(row);
 
 					const phonemes = wordResult[i].phonemes;
