@@ -27,6 +27,13 @@ refText: supermarket
   </table>
 
 <script>
+	function toggleRows() {
+		const rowsToToggle = document.querySelectorAll('.hidden');
+		rowsToToggle.forEach(row => {
+		row.classList.toggle('show');
+		});
+  	}
+
 	var baseUrl = "https://api.speechsuper.com/";
 
 	var appKey = Key.appKey;
@@ -137,11 +144,19 @@ refText: supermarket
 					const row = document.createElement('tr');
 
 					const cell1 = document.createElement('td');
-					cell1.textContent = wordResult[i].word;
+					const revealButton1 = document.createElement('button');
+					revealButton1.textContent = wordResult[i].word;
+					revealButton1.addEventListener('click', toggleRows);
+					revealButton1.classList.add('expand-button');
+					cell1.appendChild(revealButton1);
 					row.appendChild(cell1);
 
 					const cell2 = document.createElement('td');
-					cell2.textContent = wordResult[i].scores.overall;
+					const revealButton2 = document.createElement('button');
+					revealButton2.textContent = wordResult[i].scores.overall;
+					revealButton2.addEventListener('click', toggleRows);
+					revealButton2.classList.add('expand-button');
+					cell2.appendChild(revealButton2);
 					row.appendChild(cell2);
 
 					row.classList.add('main-row');
@@ -165,6 +180,8 @@ refText: supermarket
 						cell22.textContent = phonemes[j].pronunciation;
 						subRow.appendChild(cell22);
 						console.log(phonemes[j].phoneme, phonemes[j].pronunciation);
+
+						subRow.classList.add('hidden');
 
 						if (j%2 === 0) {
         					subRow.classList.add('even-row');
