@@ -27,6 +27,12 @@ refText: supermarket
   </table>
 
 <script>
+	// function toggleRows(mainRowClass) {
+	// 	const rowsToToggle = document.querySelectorAll(`.${mainRowClass}-sub`);
+	// 	rowsToToggle.forEach(row => {
+	// 		row.classList.toggle('show');
+	// 	});	
+  	// }
 	function toggleRows() {
 		const rowsToToggle = document.querySelectorAll('.hidden');
 		rowsToToggle.forEach(row => {
@@ -144,33 +150,21 @@ refText: supermarket
 					const row = document.createElement('tr');
 
 					const cell1 = document.createElement('td');
-					const revealButton1 = document.createElement('button');
-					revealButton1.textContent = wordResult[i].word;
-					revealButton1.addEventListener('click', toggleRows);
-					revealButton1.classList.add('expand-button');
+					cell1.textContent = wordResult[i].word;
 
 					const cell2 = document.createElement('td');
-					const revealButton2 = document.createElement('button');
-					revealButton2.textContent = wordResult[i].scores.overall;
-					revealButton2.addEventListener('click', toggleRows);
-					revealButton2.classList.add('expand-button');
+					cell2.textContent = wordResult[i].scores.overall;
+
+					row.appendChild(cell1);
+					row.appendChild(cell2);
+					row.addEventListener('click', toggleRows);
 
 					if (i%2 === 0) {
-						revealButton1.classList.add('even-button');
-						revealButton2.classList.add('even-button');
+						row.classList.add('main-row-even');
 					}
 					else {
-						revealButton1.classList.add('odd-button');
-						revealButton2.classList.add('odd-button');
+						row.classList.add('main-row-odd');
 					}
-
-					cell1.appendChild(revealButton1);
-					row.appendChild(cell1);
-
-					cell2.appendChild(revealButton2);
-					row.appendChild(cell2);
-
-					row.classList.add('main-row');
 
 					tableBody.appendChild(row);
 

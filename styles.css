@@ -79,7 +79,7 @@ button.expand-button {
 /* Apply styles to table header cells (th) */
 #pronunciationTable th {
     background-color: var(--primary-color);
-    padding: 8px;
+    padding: 12px;
     color: var(--white);
 }
   
@@ -89,17 +89,21 @@ button.expand-button {
     color: var(--gray);
 } 
 
-#pronunciationTable .main-row td{
-    padding: 0px;
+#pronunciationTable .main-row-even {
+    background-color: var(--violent-violet-200);
+    cursor: pointer;
+}
+
+#pronunciationTable .main-row-odd {
+    background-color: var(--violent-violet-300);
+    cursor: pointer;
 }
 
 #pronunciationTable .even-row {
     background-color: var(--violent-violet-50);
-    padding: 8px;
 }
   
 
 #pronunciationTable .odd-row {
     background-color: var(--violent-violet-100);
-    padding: 8px;
 }
