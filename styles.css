@@ -34,18 +34,18 @@
     font-size: 14px;
 }
 
-th:first-of-type {
+/* th:first-of-type {
     border-top-left-radius: 8px;
 }
 th:last-of-type {
     border-top-right-radius: 8px;
-}
-tr:last-of-type td:first-of-type {
+} */
+/* tr:last-of-type td:first-of-type {
     border-bottom-left-radius: 8px;
 }
 tr:last-of-type td:last-of-type {
     border-bottom-right-radius: 8px;
-}
+} */
 
 .hidden {
     display: none;
@@ -76,14 +76,12 @@ button.expand-button {
     background-color: var(--violent-violet-300); 
 }
 
-/* Apply styles to table header cells (th) */
 #pronunciationTable th {
     background-color: var(--primary-color);
     padding: 12px;
     color: var(--white);
 }
   
-/* Apply styles to table data cells (td) */
 #pronunciationTable td {
     padding: 8px;
     color: var(--gray);
