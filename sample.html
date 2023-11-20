@@ -40,7 +40,7 @@ refText: supermarket
 	var secretKey = Key.secretKey;
 
 	var coreType = "sent.eval"; // Change the coreType according to your needs.
-	var refText = "supermarket"; // Change the reference text according to your needs.
+	var refText = "This big supermarket"; // Change the reference text according to your needs.
 	var audioType = "wav"; // Change the audio type corresponding to the audio file.
 	var sampleRate = 16000;
 	var userId = "guest";
@@ -148,14 +148,25 @@ refText: supermarket
 					revealButton1.textContent = wordResult[i].word;
 					revealButton1.addEventListener('click', toggleRows);
 					revealButton1.classList.add('expand-button');
-					cell1.appendChild(revealButton1);
-					row.appendChild(cell1);
 
 					const cell2 = document.createElement('td');
 					const revealButton2 = document.createElement('button');
 					revealButton2.textContent = wordResult[i].scores.overall;
 					revealButton2.addEventListener('click', toggleRows);
 					revealButton2.classList.add('expand-button');
+
+					if (i%2 === 0) {
+						revealButton1.classList.add('even-button');
+						revealButton2.classList.add('even-button');
+					}
+					else {
+						revealButton1.classList.add('odd-button');
+						revealButton2.classList.add('odd-button');
+					}
+
+					cell1.appendChild(revealButton1);
+					row.appendChild(cell1);
+
 					cell2.appendChild(revealButton2);
 					row.appendChild(cell2);
 

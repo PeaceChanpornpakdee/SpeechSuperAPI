@@ -57,7 +57,7 @@ tr:last-of-type td:last-of-type {
 
 button.expand-button {
     padding: 8px;
-    background-color: var(--violent-violet-300);
+    /* background-color: var(--violent-violet-300); */
     color: var(--gray);
     border: none;
     cursor: pointer;
@@ -67,7 +67,15 @@ button.expand-button {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
 }
-  
+
+.even-button {
+    background-color: var(--violent-violet-200); 
+}
+ 
+.odd-button {
+    background-color: var(--violent-violet-300); 
+}
+
 /* Apply styles to table header cells (th) */
 #pronunciationTable th {
     background-color: var(--primary-color);
@@ -82,7 +90,6 @@ button.expand-button {
 } 
 
 #pronunciationTable .main-row td{
-    /* background-color: var(--violent-violet-300); */
     padding: 0px;
 }
 
