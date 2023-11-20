@@ -4,10 +4,10 @@
 <h2>-----------javascript http sample-----------</h2>
 <form action="" method="post" enctype="multipart/form-data" id="form" name="form_en">
 <pre>
-refText: supermarket
+refText: Test One Two Three
 </pre>
 <input type="file" name="audio" id="picpath" style="display:none" onChange="document.form_en.path.value=this.value">
-<input name="path" readonly placeholder="Please choose supermarket.wav" style="width:350px"> 
+<input name="path" readonly placeholder="Please choose your audio file" style="width:350px"> 
 <input type="button" value="Browse" onclick="document.form_en.picpath.click()">
 <pre>
 <input type="submit" value="Submit" id ="btn" style="margin-left: 56px;">
@@ -40,7 +40,8 @@ refText: supermarket
 	var secretKey = Key.secretKey;
 
 	var coreType = "sent.eval"; // Change the coreType according to your needs.
-	var refText = "This big supermarket"; // Change the reference text according to your needs.
+	// var refText = "Supermarket"; // Change the reference text according to your needs.
+	var refText = "Test One Two Three";
 	var audioType = "wav"; // Change the audio type corresponding to the audio file.
 	var sampleRate = 16000;
 	var userId = "guest";
@@ -120,21 +121,17 @@ refText: supermarket
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				t2 = Math.round(new Date().getTime() / 1000);
-				alert(xhr.responseText);
+				// alert(xhr.responseText);
 				// console.log(xhr.responseText);
-				console.log(typeof xhr.responseText);
 				var results = JSON.parse(xhr.responseText);
-				console.log(typeof results);
 				// console.log(result);
-				console.log(Object.keys(results));
 				console.log("--- Overall ---");
 				console.log(results.result);
 				console.log("--- Words ---");
 				const wordResult = results.result.words;
-				console.log(wordResult);
-				console.log(wordResult.length);
+				console.log(wordResult)
 
-				console.log(wordResult[0].scores.overall)
+				console.log("Overall Score:", wordResult[0].scores.overall)
 
 				// Get the table body element
 				const tableBody = document.querySelector('#pronunciationTable tbody');
@@ -148,6 +145,8 @@ refText: supermarket
 
 					const cell2 = document.createElement('td');
 					cell2.textContent = wordResult[i].scores.overall;
+
+					console.log(wordResult[i].word, wordResult[i].scores.overall);
 
 					row.appendChild(cell1);
 					row.appendChild(cell2);
@@ -164,11 +163,7 @@ refText: supermarket
 
 					const phonemes = wordResult[i].phonemes;
 
-					console.log(phonemes);
-					console.log(typeof phonemes);
-
 					for (let j = 0; j < phonemes.length; j++) {
-						console.log(j);
 						const subRow = document.createElement('tr');
 
 						const cell11 = document.createElement('td');
