@@ -10,7 +10,7 @@
 
     --violent-violet-50: #fbf9fe;
     --violent-violet-100: #eceafd;
-    --violent-violet-200: #dbd8fc;
+    --violent-violet-200: #d5d2fa;
     --violent-violet-300: #c1b8fa;
     --violent-violet-400: #a18ff6;
     --violent-violet-500: #8162f0;
@@ -32,6 +32,18 @@
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
+}
+
+th:nth-child(1) {
+    width: 48%;
+}
+
+th:nth-child(2) {
+    width: 48%;
+}
+
+th:nth-child(3) {
+    width: 4%;
 }
 
 /* th:first-of-type {

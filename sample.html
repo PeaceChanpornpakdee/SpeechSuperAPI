@@ -1,6 +1,7 @@
 <script type="text/javascript" src="sha.js"></script>
 <script type="text/javascript" src="key.js"></script>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <h2>-----------javascript http sample-----------</h2>
 <form action="" method="post" enctype="multipart/form-data" id="form" name="form_en">
 <pre>
@@ -19,6 +20,7 @@ refText: Test One Two Three
 	  <tr>
 		<th>Word</th>
 		<th>Score</th>
+		<th></th>
 	  </tr>
 	</thead>
 	<tbody>
@@ -27,11 +29,13 @@ refText: Test One Two Three
   </table>
 
 <script>
-	function toggleRows(mainRowClass) {
+	function toggleRows(mainRowClass, arrowIcon) {
 		const rowsToToggle = document.querySelectorAll(`.${mainRowClass}-sub`);
 		rowsToToggle.forEach(row => {
 			row.classList.toggle('show');
 		});	
+		arrowIcon.classList.toggle('fa-chevron-down');
+    	arrowIcon.classList.toggle('fa-chevron-up');
   	}
 
 	var baseUrl = "https://api.speechsuper.com/";
@@ -39,10 +43,10 @@ refText: Test One Two Three
 	var appKey = Key.appKey;
 	var secretKey = Key.secretKey;
 
-	var coreType = "sent.eval"; // Change the coreType according to your needs.
-	// var refText = "Supermarket"; // Change the reference text according to your needs.
+	var coreType = "sent.eval"; 
+	// var refText = "Supermarket";
 	var refText = "Test One Two Three";
-	var audioType = "wav"; // Change the audio type corresponding to the audio file.
+	var audioType = "wav"; 
 	var sampleRate = 16000;
 	var userId = "guest";
 
@@ -148,9 +152,17 @@ refText: Test One Two Three
 
 					console.log(wordResult[i].word, wordResult[i].scores.overall);
 
+					const cell3 = document.createElement('td');
+					const arrowIcon = document.createElement('i');
+    				arrowIcon.classList.add('fas', 'fa-chevron-down'); // Default arrow icon
+    				cell3.appendChild(arrowIcon);
+					// cell3.appendChild(createIcon('fas fa-chevron-down', i));
+					// cell3.appendChild(createIcon('fas fa-chevron-up', i));
+
 					row.appendChild(cell1);
 					row.appendChild(cell2);
-					row.addEventListener('click', () => toggleRows(`main-row-${i + 1}`));
+					row.appendChild(cell3);
+					row.addEventListener('click', () => toggleRows(`main-row-${i + 1}`, arrowIcon));
 
 					if (i%2 === 0) {
 						row.classList.add('main-row-even');
@@ -174,6 +186,9 @@ refText: Test One Two Three
 						cell22.textContent = phonemes[j].pronunciation;
 						subRow.appendChild(cell22);
 						console.log(phonemes[j].phoneme, phonemes[j].pronunciation);
+
+						const cell33 = document.createElement('td');
+						subRow.appendChild(cell33);
 
 						subRow.classList.add('hidden');
 						subRow.classList.add(`main-row-${i + 1}-sub`);
