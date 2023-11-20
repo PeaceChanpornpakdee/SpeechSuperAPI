@@ -1,16 +1,11 @@
 /* Color palette  */
 :root {
-    /* --secondary-color: #2ecc71;
-    --accent-color: #e74c3c;
-    --background-color: #f5f5f5;
-    --text-color: #333333; */
-    /* Add more colors as needed */
     --white: #ffffff;
-    --gray: #3b3940;
+    --gray: #4b4952;
 
     --violent-violet-50: #fbf9fe;
     --violent-violet-100: #eceafd;
-    --violent-violet-200: #d5d2fa;
+    --violent-violet-200: #d6d2fa;
     --violent-violet-300: #c1b8fa;
     --violent-violet-400: #a18ff6;
     --violent-violet-500: #8162f0;
@@ -23,7 +18,10 @@
     --primary-color: var(--violent-violet-950);
 }
 
-
+.fas.fa-chevron-down,
+.fas.fa-chevron-up {
+  color: var(--violent-violet-950);
+}
 
 #pronunciationTable {
     width: 50%;
@@ -32,6 +30,8 @@
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 th:nth-child(1) {
@@ -46,19 +46,6 @@ th:nth-child(3) {
     width: 4%;
 }
 
-/* th:first-of-type {
-    border-top-left-radius: 8px;
-}
-th:last-of-type {
-    border-top-right-radius: 8px;
-} */
-/* tr:last-of-type td:first-of-type {
-    border-bottom-left-radius: 8px;
-}
-tr:last-of-type td:last-of-type {
-    border-bottom-right-radius: 8px;
-} */
-
 .hidden {
     display: none;
 }
@@ -67,53 +54,40 @@ tr:last-of-type td:last-of-type {
     display: table-row;
 }
 
-button.expand-button {
-    padding: 8px;
-    /* background-color: var(--violent-violet-300); */
-    color: var(--gray);
-    border: none;
-    cursor: pointer;
-    width: 100%; /* Expand button width to fill the cell */
-    height: 100%; /* Expand button height to fill the cell */
-    /* box-sizing: border-box; Include padding in the button's width and height */
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-}
-
-.even-button {
-    background-color: var(--violent-violet-200); 
-}
- 
-.odd-button {
-    background-color: var(--violent-violet-300); 
-}
-
 #pronunciationTable th {
     background-color: var(--primary-color);
     padding: 12px;
     color: var(--white);
+    border-bottom: 3px solid white; 
 }
   
 #pronunciationTable td {
     padding: 8px;
-    color: var(--gray);
 } 
 
 #pronunciationTable .main-row-even {
     background-color: var(--violent-violet-200);
     cursor: pointer;
+    color: var(--violent-violet-950);
+    border-top: 2px solid white; 
 }
 
 #pronunciationTable .main-row-odd {
     background-color: var(--violent-violet-300);
     cursor: pointer;
+    color: var(--violent-violet-950);
+    border-top: 2px solid white; 
 }
 
 #pronunciationTable .even-row {
     background-color: var(--violent-violet-50);
+    color: var(--gray);
+    padding: 6px;
 }
   
 
 #pronunciationTable .odd-row {
     background-color: var(--violent-violet-100);
+    color: var(--gray);
+    padding: 6px;
 }
