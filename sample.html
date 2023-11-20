@@ -126,9 +126,8 @@ refText: Test One Two Three
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				t2 = Math.round(new Date().getTime() / 1000);
 				// alert(xhr.responseText);
-				// console.log(xhr.responseText);
 				var results = JSON.parse(xhr.responseText);
-				// console.log(result);
+				console.log(results);
 				console.log("--- Overall ---");
 				console.log(results.result);
 				console.log("--- Words ---");
