@@ -37,9 +37,27 @@ refText: Test One Two Three
 		const rowsToToggle = document.querySelectorAll(`.${mainRowClass}-sub`);
 		rowsToToggle.forEach(row => {
 			row.classList.toggle('show');
+			row.classList.toggle('hidden');
 		});	
+
 		arrowIcon.classList.toggle('fa-chevron-down');
     	arrowIcon.classList.toggle('fa-chevron-up');
+
+		const otherMainRows = document.querySelectorAll(`tr[class^="main-row-"]:not(.${mainRowClass}):not([class*="sub"])`);
+		
+		otherMainRows.forEach(row => {
+			const subRows = document.querySelectorAll(`.${row.classList[0]}-sub`);
+			subRows.forEach(subRow => {
+				subRow.classList.remove('show');
+				subRow.classList.add('hidden');
+			});
+		});
+
+		const otherArrowIcons = document.querySelectorAll(`tr[class^="main-row-"]:not(.${mainRowClass}) td:last-child i`);
+		otherArrowIcons.forEach(icon => {
+			icon.classList.add('fa-chevron-down');
+			icon.classList.remove('fa-chevron-up');
+		});
   	}
 
 	var baseUrl = "https://api.speechsuper.com/";
@@ -175,6 +193,8 @@ refText: Test One Two Three
 			row.appendChild(cell3);
 			row.addEventListener('click', () => toggleRows(`main-row-${i + 1}`, arrowIcon));
 
+			row.classList.add(`main-row-${i + 1}`);
+
 			if (i%2 === 0) {
 				row.classList.add('main-row-even');
 			}
@@ -201,8 +221,8 @@ refText: Test One Two Three
 				const cell33 = document.createElement('td');
 				subRow.appendChild(cell33);
 
-				subRow.classList.add('hidden');
 				subRow.classList.add(`main-row-${i + 1}-sub`);
+				subRow.classList.add('hidden');
 
 				if (j%2 === 0) {
 					subRow.classList.add('even-row');
