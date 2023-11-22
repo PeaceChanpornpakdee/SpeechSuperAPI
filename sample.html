@@ -112,96 +112,119 @@ refText: Test One Two Three
 			}
 		}
 	};
-	var btn = document.getElementById("btn");
-	btn.onclick = function () {
-		var fd = new FormData(document.getElementById("form"));
-		fd.append("text", JSON.stringify(params));
-		var xhr = new XMLHttpRequest();
-		xhr.open("post", url);
-		xhr.setRequestHeader("Request-Index", "0");
-		xhr.send(fd);
-		var t1, t2;
-		t1 = Math.round(new Date().getTime() / 1000);
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState == 4 && xhr.status == 200) {
+
+	async function speechSuperAPI() {
+		return new Promise(function(resolve, reject) {
+			var fd = new FormData(document.getElementById("form"));
+			fd.append("text", JSON.stringify(params));
+			var xhr = new XMLHttpRequest();
+			xhr.open("post", url);
+			xhr.setRequestHeader("Request-Index", "0");
+			xhr.send(fd);
+			var t1, t2;
+			t1 = Math.round(new Date().getTime() / 1000);
+			xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
 				t2 = Math.round(new Date().getTime() / 1000);
-				// alert(xhr.responseText);
-				var results = JSON.parse(xhr.responseText);
-				console.log(results);
-				console.log("--- Overall ---");
-				console.log(results.result);
-				console.log("--- Words ---");
-				const wordResult = results.result.words;
-				console.log(wordResult)
-
-				console.log("Overall Score:", wordResult[0].scores.overall)
-
-				// Get the table body element
-				const tableBody = document.querySelector('#pronunciationTable tbody');
-
-				// Generate table rows and cells using nested loops
-				for (let i = 0; i < wordResult.length; i++) {
-					const row = document.createElement('tr');
-
-					const cell1 = document.createElement('td');
-					cell1.textContent = wordResult[i].word;
-
-					const cell2 = document.createElement('td');
-					cell2.textContent = wordResult[i].scores.overall;
-
-					console.log(wordResult[i].word, wordResult[i].scores.overall);
-
-					const cell3 = document.createElement('td');
-					const arrowIcon = document.createElement('i');
-    				arrowIcon.classList.add('fas', 'fa-chevron-down'); // Default arrow icon
-    				cell3.appendChild(arrowIcon);
-
-					row.appendChild(cell1);
-					row.appendChild(cell2);
-					row.appendChild(cell3);
-					row.addEventListener('click', () => toggleRows(`main-row-${i + 1}`, arrowIcon));
-
-					if (i%2 === 0) {
-						row.classList.add('main-row-even');
-					}
-					else {
-						row.classList.add('main-row-odd');
-					}
-
-					tableBody.appendChild(row);
-
-					const phonemes = wordResult[i].phonemes;
-
-					for (let j = 0; j < phonemes.length; j++) {
-						const subRow = document.createElement('tr');
-
-						const cell11 = document.createElement('td');
-						cell11.textContent = phonemes[j].phoneme;
-						subRow.appendChild(cell11); 
-
-						const cell22 = document.createElement('td');
-						cell22.textContent = phonemes[j].pronunciation;
-						subRow.appendChild(cell22);
-						console.log(phonemes[j].phoneme, phonemes[j].pronunciation);
-
-						const cell33 = document.createElement('td');
-						subRow.appendChild(cell33);
-
-						subRow.classList.add('hidden');
-						subRow.classList.add(`main-row-${i + 1}-sub`);
-
-						if (j%2 === 0) {
-        					subRow.classList.add('even-row');
-						}
-						else {
-							subRow.classList.add('odd-row');
-						}
-						
-						tableBody.appendChild(subRow);
-					}
+				if (xhr.status == 200) {
+					resolve(JSON.parse(xhr.responseText));
+				} else {
+					reject("Error occurred: " + xhr.status);
 				}
 			}
-		};
+			};
+		});
+	}
+
+	function createTable(results){
+		console.log(results);
+		console.log("--- Overall ---");
+		console.log(results.result);
+		console.log("--- Words ---");
+		const wordResult = results.result.words;
+		console.log(wordResult)
+
+		console.log("Overall Score:", wordResult[0].scores.overall)
+
+		// Get the table body element
+		const tableBody = document.querySelector('#pronunciationTable tbody');
+
+		// Generate table rows and cells using nested loops
+		for (let i = 0; i < wordResult.length; i++) {
+			const row = document.createElement('tr');
+
+			const cell1 = document.createElement('td');
+			cell1.textContent = wordResult[i].word;
+
+			const cell2 = document.createElement('td');
+			cell2.textContent = wordResult[i].scores.overall;
+
+			console.log(wordResult[i].word, wordResult[i].scores.overall);
+
+			const cell3 = document.createElement('td');
+			const arrowIcon = document.createElement('i');
+			arrowIcon.classList.add('fas', 'fa-chevron-down'); // Default arrow icon
+			cell3.appendChild(arrowIcon);
+
+			row.appendChild(cell1);
+			row.appendChild(cell2);
+			row.appendChild(cell3);
+			row.addEventListener('click', () => toggleRows(`main-row-${i + 1}`, arrowIcon));
+
+			if (i%2 === 0) {
+				row.classList.add('main-row-even');
+			}
+			else {
+				row.classList.add('main-row-odd');
+			}
+
+			tableBody.appendChild(row);
+
+			const phonemes = wordResult[i].phonemes;
+
+			for (let j = 0; j < phonemes.length; j++) {
+				const subRow = document.createElement('tr');
+
+				const cell11 = document.createElement('td');
+				cell11.textContent = phonemes[j].phoneme;
+				subRow.appendChild(cell11); 
+
+				const cell22 = document.createElement('td');
+				cell22.textContent = phonemes[j].pronunciation;
+				subRow.appendChild(cell22);
+				console.log(phonemes[j].phoneme, phonemes[j].pronunciation);
+
+				const cell33 = document.createElement('td');
+				subRow.appendChild(cell33);
+
+				subRow.classList.add('hidden');
+				subRow.classList.add(`main-row-${i + 1}-sub`);
+
+				if (j%2 === 0) {
+					subRow.classList.add('even-row');
+				}
+				else {
+					subRow.classList.add('odd-row');
+				}
+				
+				tableBody.appendChild(subRow);
+			}
+		}
+	}
+
+	async function original() {
+		try {
+			const results = await speechSuperAPI();
+			createTable(results);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	var btn = document.getElementById("btn");
+	btn.onclick = function () {
+		original();
 		return false;
 	};
+
 </script>
