@@ -1,5 +1,6 @@
 <script type="text/javascript" src="sha.js"></script>
 <script type="text/javascript" src="key.js"></script>
+<script type="text/javascript" src="mockdata.js"></script>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <h2>-----------javascript http sample-----------</h2>
@@ -14,6 +15,9 @@ refText: Test One Two Three
 <input type="submit" value="Submit" id ="btn" style="margin-left: 56px;">
 </pre>
 </form>
+
+<button type="button" onclick="mock()">Mock Response</button>
+<pre></pre>
 
 <table id="pronunciationTable">
 	<thead>
@@ -210,6 +214,11 @@ refText: Test One Two Three
 				tableBody.appendChild(subRow);
 			}
 		}
+	}
+
+	function mock() {
+		const results = mockResult;
+		createTable(results);
 	}
 
 	async function original() {
