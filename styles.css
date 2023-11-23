@@ -101,3 +101,17 @@ th:nth-child(3) {
     color: var(--gray);
     padding: 6px;
 }
+
+.power-bar-container {
+    width: 80px;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #ddd;
+}
+  
+.power-bar {
+    height: 100%;
+    background-color: var(--violent-violet-600);
+    width: 0%;
+}

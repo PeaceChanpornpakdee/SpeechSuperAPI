@@ -33,6 +33,22 @@ refText: Test One Two Three
   </table>
 
 <script>
+
+	function createPowerbar(percent) {
+		const powerBarContainer = document.createElement('div');
+		powerBarContainer.classList.add('power-bar-container')
+
+		const powerBar = document.createElement('div');
+		powerBar.classList.add('power-bar')
+		powerBar.style.width = percent + '%';
+
+		document.body.appendChild(powerBarContainer);
+		powerBarContainer.appendChild(powerBar);
+	}
+
+	createPowerbar(70);
+	// createPowerbar(50);
+
 	function toggleRows(mainRowClass, arrowIcon) {
 		const rowsToToggle = document.querySelectorAll(`.${mainRowClass}-sub`);
 		rowsToToggle.forEach(row => {
