@@ -19,34 +19,58 @@ refText: Test One Two Three
 <button type="button" onclick="mock()">Mock Response</button>
 <pre></pre>
 
-<table id="pronunciationTable">
-	<thead>
-	  <tr>
-		<th>Word</th>
-		<th>Score</th>
-		<th></th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <!-- Table body will be generated here -->
-	</tbody>
-  </table>
-
+<div id="table-container">
+	<table id="pronunciationTable">
+		<thead>
+		<tr>
+			<th>Word</th>
+			<th>Score</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- Table body will be generated here -->
+		</tbody>
+	</table>
+</div>
 <script>
 
-	function createPowerbar(percent) {
+	function createPowerbar(topic, percent) {
 		const powerBarContainer = document.createElement('div');
-		powerBarContainer.classList.add('power-bar-container')
+		powerBarContainer.classList.add('power-bar-container');
+
+		const powerBarBackground = document.createElement('div');
+		powerBarBackground.classList.add('power-bar-background')
 
 		const powerBar = document.createElement('div');
 		powerBar.classList.add('power-bar')
 		powerBar.style.width = percent + '%';
 
-		document.body.appendChild(powerBarContainer);
-		powerBarContainer.appendChild(powerBar);
+		const percentText = document.createElement('div');
+		percentText.style.padding = '7px 0px';
+		percentText.style.width = '12px'
+		percentText.textContent = percent;
+
+		const topicText = document.createElement('div');
+		topicText.style.padding = '7px 0px';
+		topicText.style.width = '64px'
+		topicText.textContent = topic;
+
+		var tableContainer = document.querySelector('#table-container');
+		console.log(tableContainer);
+		console.log(1234567)
+
+		// document.body.appendChild(powerBarContainer);
+		tableContainer.appendChild(powerBarContainer);
+		powerBarContainer.appendChild(topicText);
+		powerBarContainer.appendChild(powerBarBackground);
+		powerBarBackground.appendChild(powerBar);
+		powerBarContainer.appendChild(percentText);
 	}
 
-	createPowerbar(70);
+	createPowerbar('Fluency', 70);
+	createPowerbar('Integrity', 70);
+	createPowerbar('Rhythm', 1);
 	// createPowerbar(50);
 
 	function toggleRows(mainRowClass, arrowIcon) {
