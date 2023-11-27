@@ -57,8 +57,6 @@ refText: Test One Two Three
 		topicText.textContent = topic;
 
 		var tableContainer = document.querySelector('#table-container');
-		console.log(tableContainer);
-		console.log(1234567)
 
 		// document.body.appendChild(powerBarContainer);
 		tableContainer.appendChild(powerBarContainer);
@@ -178,11 +176,13 @@ refText: Test One Two Three
 	async function speechSuperAPI() {
 		return new Promise(function(resolve, reject) {
 			var fd = new FormData(document.getElementById("form"));
+			console.log(fd);
 			fd.append("text", JSON.stringify(params));
 			var xhr = new XMLHttpRequest();
 			xhr.open("post", url);
 			xhr.setRequestHeader("Request-Index", "0");
 			xhr.send(fd);
+			console.log(fd);
 			var t1, t2;
 			t1 = Math.round(new Date().getTime() / 1000);
 			xhr.onreadystatechange = function() {
