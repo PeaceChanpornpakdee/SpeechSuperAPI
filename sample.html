@@ -22,13 +22,17 @@ refText: Test One Two Three
 <div id="firstclassenglish-popup"></div>
 <script>
 
-	var popup = document.getElementById("firstclassenglish-popup"); 
-	var results = mockResult;
-	console.log("Result", results);
-	createPowerbar(container=popup, topic='Fluency', percent=results.result.fluency);
-    createPowerbar(container=popup, topic='Integrity', percent=results.result.integrity);
-    createPowerbar(container=popup, topic='Rhythm', percent=results.result.rhythm);
-	createTable(container=popup, results=results);
+	function createPopup(results){
+		var popup = document.getElementById("firstclassenglish-popup"); 
+		console.log("Result", results);
+		const title = document.createElement('h3');
+		title.textContent = 'Pronunciation Score';
+		popup.appendChild(title);
+		createPowerbar(container=popup, topic='Fluency', percent=results.result.fluency);
+		createPowerbar(container=popup, topic='Integrity', percent=results.result.integrity);
+		createPowerbar(container=popup, topic='Rhythm', percent=results.result.rhythm);
+		createTable(container=popup, results=results);
+	}
 
 	function createPowerbar(container, topic, percent) {
 		const powerBarContainer = document.createElement('div');
@@ -271,8 +275,7 @@ refText: Test One Two Three
 	}
 
 	function mock() {
-		const results = mockResult;
-		createTable(results);
+		createPopup(mockResult);
 	}
 
 	async function original() {
