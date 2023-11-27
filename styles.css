@@ -175,3 +175,7 @@
     background-color: var(--violent-violet-500);
     width: 0%;
 }
+
+.recording-button{
+    background-color: pink;
+}

@@ -1,6 +1,7 @@
 <script type="text/javascript" src="sha.js"></script>
 <script type="text/javascript" src="key.js"></script>
 <script type="text/javascript" src="mockdata.js"></script>
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <h2>-----------javascript http sample-----------</h2>
@@ -17,6 +18,10 @@ refText: Test One Two Three
 </form>
 
 <button type="button" onclick="mock()">Mock Response</button>
+<pre></pre>
+
+<button type="button" class="recording-button" id="startRecording" onclick="startRecording()">Start Recording</button>
+<button type="button" class="recording-button" id="stopRecording"  onclick="stopRecording()" disabled>Stop Recording</button>
 <pre></pre>
 
 <div id="firstclassenglish-popup"></div>
@@ -252,13 +257,11 @@ refText: Test One Two Three
 	async function speechSuperAPI() {
 		return new Promise(function(resolve, reject) {
 			var fd = new FormData(document.getElementById("form"));
-			console.log(fd);
 			fd.append("text", JSON.stringify(params));
 			var xhr = new XMLHttpRequest();
 			xhr.open("post", url);
 			xhr.setRequestHeader("Request-Index", "0");
 			xhr.send(fd);
-			console.log(fd);
 			var t1, t2;
 			t1 = Math.round(new Date().getTime() / 1000);
 			xhr.onreadystatechange = function() {
@@ -281,7 +284,7 @@ refText: Test One Two Three
 	async function original() {
 		try {
 			const results = await speechSuperAPI();
-			createTable(results);
+			createPopup(results);
 		} catch (error) {
 			console.error(error);
 		}
@@ -292,5 +295,55 @@ refText: Test One Two Three
 		original();
 		return false;
 	};
+
+	let audioContext;
+	let recorder;
+	var recording = false;
+
+	const startRecordingButton = document.getElementById('startRecording');
+	const stopRecordingButton = document.getElementById('stopRecording');
+
+	startRecordingButton.addEventListener('click', startRecording);
+	stopRecordingButton.addEventListener('click', stopRecording);
+
+	function startRecording() {
+		if(!recording){
+			recording=true;
+			console.log("Start");
+			navigator.mediaDevices.getUserMedia({ audio: true })
+				.then(stream => {
+				audioContext = new AudioContext();
+				const audioInput = audioContext.createMediaStreamSource(stream);
+				recorder = new Recorder(audioInput, { numChannels: 1, sampleRate: 16000 }); 
+
+				recorder.record();
+				startRecordingButton.disabled = true;
+				stopRecordingButton.disabled = false;
+				})
+				.catch(error => {
+				console.error('Error accessing the microphone:', error);
+				});
+		}
+	}
+
+	function stopRecording() {
+		if(recording){
+			recording=false;
+			console.log("Stop");
+			recorder.stop();
+			recorder.exportWAV(function (blob) {
+				const audioUrl = URL.createObjectURL(blob);
+				const downloadLink = document.createElement('a');
+				downloadLink.href = audioUrl;
+				downloadLink.download = 'recording_neww.wav';
+				downloadLink.click();
+				recording=false;
+			});
+
+			recorder.clear();
+			startRecordingButton.disabled = false;
+			stopRecordingButton.disabled = true;
+		}
+	}
 
 </script>
