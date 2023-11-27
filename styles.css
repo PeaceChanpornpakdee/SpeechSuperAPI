@@ -23,18 +23,18 @@
   color: var(--violent-violet-950);
 }
 
-#table-container {
+#firstclassenglish-popup {
+    background-color: #f1f1f1;
     width: 300px;
     height: 419px;
+    z-index: 9999;
+    overflow: auto;
     padding: 20px;
-    background-color: #f1f1f1;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    
+    user-select: none;
+    color: var(--primary-color);
 }
 
-#pronunciationTable {
-    width: 100%;
+#firstclassenglish-popup table {
     border-collapse: collapse;
     border: none;
     text-align: center;
@@ -42,25 +42,14 @@
     font-size: 14px;
     border-radius: 8px;
     overflow: hidden;
+    width: 100%;
 }
 
-th:nth-child(1) {
-    width: 48%;
-}
-
-th:nth-child(2) {
-    width: 48%;
-}
-
-th:nth-child(3) {
-    width: 4%;
-}
-
-.hidden {
+#firstclassenglish-popup .hidden {
     display: none;
 }
   
-.show {
+#firstclassenglish-popup .show {
     display: table-row;
     animation: fadeIn 0.5s ease forwards; 
 }
@@ -74,61 +63,104 @@ th:nth-child(3) {
     }
 }
 
-#pronunciationTable th {
-    background-color: var(--primary-color);
-    padding: 12px;
+#firstclassenglish-popup th:nth-child(1) {
+    width: 46%;
+}
+
+#firstclassenglish-popup th:nth-child(2) {
+    width: 44%;
+}
+
+#firstclassenglish-popup th:nth-child(3) {
+    width: 10%;
+}
+
+#firstclassenglish-popup th {
+    background-color: var(--violent-violet-700);
+    padding: 4px !important;
     color: var(--white);
     border-bottom: 3px solid white; 
+    text-align: center;
+    font-size: 15px;
+    border-collapse: collapse;
+    border: none;
+    height: 42px;
 }
   
-#pronunciationTable td {
-    padding: 8px;
-} 
+#firstclassenglish-popup td {
+    text-align: center;
+    padding: 0px !important;
+    border-collapse: collapse;
+    border: none;
+    height: 35px;
+}
 
-#pronunciationTable .main-row-even {
+#firstclassenglish-popup .main-even-row {
     background-color: var(--violent-violet-200);
     cursor: pointer;
     color: var(--violent-violet-950);
     border-top: 2px solid white; 
+    transition: background-color 0.3s ease;
 }
 
-#pronunciationTable .main-row-odd {
+#firstclassenglish-popup .main-even-row:hover {
+    background-color: #aca4f4;
+}
+
+#firstclassenglish-popup .main-odd-row {
     background-color: var(--violent-violet-300);
     cursor: pointer;
     color: var(--violent-violet-950);
     border-top: 2px solid white; 
+    transition: background-color 0.3s ease;
 }
 
-#pronunciationTable .even-row {
+#firstclassenglish-popup .main-odd-row:hover {
+    background-color: #9f92f7;
+}
+
+#firstclassenglish-popup .even-row {
     background-color: var(--violent-violet-50);
     color: var(--gray);
     padding: 6px;
 }
   
-
-#pronunciationTable .odd-row {
+#firstclassenglish-popup .odd-row {
     background-color: var(--violent-violet-100);
     color: var(--gray);
     padding: 6px;
 }
 
-.power-bar-container {
+#firstclassenglish-popup .power-bar-container {
     display: flex;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     width: 300px;
+    font-size: 13px;
+    height: 36px;
 }
 
-.power-bar-background {
-    width: 80px;
+#firstclassenglish-popup .power-bar-topic {
+    width: 64px;
+    background-color: var(--violent-violet-200);
+    height: 20px;
+    border-radius: 20px;
+    padding: 0;
+    text-align: center;
+    font-size: 12px;
+    margin: 8px 6px 8px 20px;
+}
+
+#firstclassenglish-popup .power-bar-background {
+    width: 100px;
     height: 12px;
     border-radius: 6px;
     overflow: hidden;
-    background-color: #ddd;
-    margin: 10px;
+    background-color: #d6d6d6;
+    margin: 12px;
 }
   
-.power-bar {
+#firstclassenglish-popup .power-bar {
     height: 100%;
-    background-color: var(--violent-violet-600);
+    background-color: var(--violent-violet-500);
     width: 0%;
 }

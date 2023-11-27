@@ -19,23 +19,18 @@ refText: Test One Two Three
 <button type="button" onclick="mock()">Mock Response</button>
 <pre></pre>
 
-<div id="table-container">
-	<table id="pronunciationTable">
-		<thead>
-		<tr>
-			<th>Word</th>
-			<th>Score</th>
-			<th></th>
-		</tr>
-		</thead>
-		<tbody>
-		<!-- Table body will be generated here -->
-		</tbody>
-	</table>
-</div>
+<div id="firstclassenglish-popup"></div>
 <script>
 
-	function createPowerbar(topic, percent) {
+	var popup = document.getElementById("firstclassenglish-popup"); 
+	var results = mockResult;
+	console.log("Result", results);
+	createPowerbar(container=popup, topic='Fluency', percent=results.result.fluency);
+    createPowerbar(container=popup, topic='Integrity', percent=results.result.integrity);
+    createPowerbar(container=popup, topic='Rhythm', percent=results.result.rhythm);
+	createTable(container=popup, results=results);
+
+	function createPowerbar(container, topic, percent) {
 		const powerBarContainer = document.createElement('div');
 		powerBarContainer.classList.add('power-bar-container');
 
@@ -47,29 +42,106 @@ refText: Test One Two Three
 		powerBar.style.width = percent + '%';
 
 		const percentText = document.createElement('div');
-		percentText.style.padding = '7px 0px';
+		percentText.style.padding = '7px 4px';
 		percentText.style.width = '12px'
 		percentText.textContent = percent;
 
 		const topicText = document.createElement('div');
-		topicText.style.padding = '7px 0px';
-		topicText.style.width = '64px'
+		topicText.classList.add('power-bar-topic')
 		topicText.textContent = topic;
 
-		var tableContainer = document.querySelector('#table-container');
-
-		// document.body.appendChild(powerBarContainer);
-		tableContainer.appendChild(powerBarContainer);
+		container.appendChild(powerBarContainer);
 		powerBarContainer.appendChild(topicText);
 		powerBarContainer.appendChild(powerBarBackground);
 		powerBarBackground.appendChild(powerBar);
 		powerBarContainer.appendChild(percentText);
 	}
 
-	createPowerbar('Fluency', 70);
-	createPowerbar('Integrity', 70);
-	createPowerbar('Rhythm', 1);
-	// createPowerbar(50);
+	function createTable(container, results){
+
+		var table = document.createElement('table');
+
+		var tableHead = document.createElement('thead');
+		var tableBody = document.createElement('tbody');
+
+		var headerRow = document.createElement('tr');
+		var headers = ['Word', 'Score', ''];
+
+		headers.forEach(headerText => {
+			const th = document.createElement('th');
+			th.textContent = headerText;
+			headerRow.appendChild(th);
+		});
+
+		tableHead.appendChild(headerRow);
+		table.appendChild(tableHead);
+
+		const wordResult = results.result.words;
+
+		for (let i = 0; i < wordResult.length; i++) {
+			const row = document.createElement('tr');
+
+			console.log(wordResult[i].word, wordResult[i].scores.overall);
+
+			const cell1 = document.createElement('td');
+			cell1.textContent = wordResult[i].word;
+
+			const cell2 = document.createElement('td');
+			cell2.textContent = wordResult[i].scores.overall;
+
+			const cell3 = document.createElement('td');
+			const arrowIcon = document.createElement('i');
+			arrowIcon.classList.add('fas', 'fa-chevron-down'); 
+			cell3.appendChild(arrowIcon);
+
+			row.appendChild(cell1);
+			row.appendChild(cell2);
+			row.appendChild(cell3);
+			row.addEventListener('click', () => toggleRows(`main-row-${i + 1}`, arrowIcon));
+
+			row.classList.add(`main-row-${i + 1}`);
+
+			if (i%2 === 0)  row.classList.add('main-even-row');
+			else            row.classList.add('main-odd-row');
+
+			tableBody.appendChild(row);
+
+			const phonemes = wordResult[i].phonemes;
+
+			for (let j = 0; j < phonemes.length; j++) {
+				const subRow = document.createElement('tr');
+
+				const cell11 = document.createElement('td');
+				cell11.textContent = phonemes[j].phoneme;
+				subRow.appendChild(cell11); 
+
+				const cell22 = document.createElement('td');
+				cell22.textContent = phonemes[j].pronunciation;
+				subRow.appendChild(cell22);
+
+				if(phonemes[j].pronunciation < 50){
+					cell11.style.color = '#D90000';
+					cell22.style.color = '#D90000';
+				}
+
+				console.log(phonemes[j].phoneme, phonemes[j].pronunciation);
+
+				const cell33 = document.createElement('td');
+				subRow.appendChild(cell33);
+
+				subRow.classList.add(`main-row-${i + 1}-sub`);
+				subRow.classList.add('hidden');
+
+				if (j%2 === 0)  subRow.classList.add('even-row');
+				else            subRow.classList.add('odd-row');
+				
+				tableBody.appendChild(subRow);
+			}
+		}
+
+		table.appendChild(tableBody);
+		container.appendChild(table);
+	}
 
 	function toggleRows(mainRowClass, arrowIcon) {
 		const rowsToToggle = document.querySelectorAll(`.${mainRowClass}-sub`);
@@ -79,10 +151,10 @@ refText: Test One Two Three
 		});	
 
 		arrowIcon.classList.toggle('fa-chevron-down');
-    	arrowIcon.classList.toggle('fa-chevron-up');
+		arrowIcon.classList.toggle('fa-chevron-up');
 
 		const otherMainRows = document.querySelectorAll(`tr[class^="main-row-"]:not(.${mainRowClass}):not([class*="sub"])`);
-		
+
 		otherMainRows.forEach(row => {
 			const subRows = document.querySelectorAll(`.${row.classList[0]}-sub`);
 			subRows.forEach(subRow => {
@@ -96,7 +168,7 @@ refText: Test One Two Three
 			icon.classList.add('fa-chevron-down');
 			icon.classList.remove('fa-chevron-up');
 		});
-  	}
+	}
 
 	var baseUrl = "https://api.speechsuper.com/";
 
@@ -196,84 +268,6 @@ refText: Test One Two Three
 			}
 			};
 		});
-	}
-
-	function createTable(results){
-		console.log(results);
-		console.log("--- Overall ---");
-		console.log(results.result);
-		console.log("--- Words ---");
-		const wordResult = results.result.words;
-		console.log(wordResult)
-
-		console.log("Overall Score:", wordResult[0].scores.overall)
-
-		// Get the table body element
-		const tableBody = document.querySelector('#pronunciationTable tbody');
-
-		// Generate table rows and cells using nested loops
-		for (let i = 0; i < wordResult.length; i++) {
-			const row = document.createElement('tr');
-
-			const cell1 = document.createElement('td');
-			cell1.textContent = wordResult[i].word;
-
-			const cell2 = document.createElement('td');
-			cell2.textContent = wordResult[i].scores.overall;
-
-			console.log(wordResult[i].word, wordResult[i].scores.overall);
-
-			const cell3 = document.createElement('td');
-			const arrowIcon = document.createElement('i');
-			arrowIcon.classList.add('fas', 'fa-chevron-down'); // Default arrow icon
-			cell3.appendChild(arrowIcon);
-
-			row.appendChild(cell1);
-			row.appendChild(cell2);
-			row.appendChild(cell3);
-			row.addEventListener('click', () => toggleRows(`main-row-${i + 1}`, arrowIcon));
-
-			row.classList.add(`main-row-${i + 1}`);
-
-			if (i%2 === 0) {
-				row.classList.add('main-row-even');
-			}
-			else {
-				row.classList.add('main-row-odd');
-			}
-
-			tableBody.appendChild(row);
-
-			const phonemes = wordResult[i].phonemes;
-
-			for (let j = 0; j < phonemes.length; j++) {
-				const subRow = document.createElement('tr');
-
-				const cell11 = document.createElement('td');
-				cell11.textContent = phonemes[j].phoneme;
-				subRow.appendChild(cell11); 
-
-				const cell22 = document.createElement('td');
-				cell22.textContent = phonemes[j].pronunciation;
-				subRow.appendChild(cell22);
-				console.log(phonemes[j].phoneme, phonemes[j].pronunciation);
-
-				const cell33 = document.createElement('td');
-				subRow.appendChild(cell33);
-
-				subRow.classList.add(`main-row-${i + 1}-sub`);
-				subRow.classList.add('hidden');
-
-				if (j%2 === 0) {
-					subRow.classList.add('even-row');
-				}
-				else {
-					subRow.classList.add('odd-row');
-				}
-				
-				tableBody.appendChild(subRow);
-			}
-		}
 	}
 
 	function mock() {
